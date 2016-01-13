@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Route
+metadata:
+  name: phabricator
+  namespace: ceyes-ci
+spec:
+  host: code.ceyes.os
+  to:
+    kind: Service
+    name: phabricator
+status: {}

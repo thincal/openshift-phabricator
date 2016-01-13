@@ -1,6 +1,8 @@
 {
+      "phd.user": "root",
       "storage.default-namespace": "default",
       "mysql.host": "{{MYSQL_HOST}}",
+      "mysql.port": "{{MYSQL_PORT}}",
       "mysql.user": "{{MYSQL_USER}}",
       "mysql.pass": "{{MYSQL_PASS}}",
       "pygments.enabled": true

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: phabricator-repo-volume
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 400Gi
+  nfs:
+    path: /home/data/phabricator-repovol
+    server: master1.ceyes.os
