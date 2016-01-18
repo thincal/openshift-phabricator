@@ -45,7 +45,8 @@ RUN     a2enmod rewrite
 ADD     phabricator.conf /etc/apache2/sites-available/phabricator.conf
 RUN     ln -s /etc/apache2/sites-available/phabricator.conf \
             /etc/apache2/sites-enabled/phabricator.conf && \
-        rm -f /etc/apache2/sites-enabled/000-default.conf
+        rm -f /etc/apache2/sites-enabled/000-default.conf && \
+        chmod -R a+rwx /var/log/apache2/
 ADD     ports.conf /etc/apache2/ports.conf
 
 # Setup phabricator
@@ -54,7 +55,9 @@ ADD     local.json /tmp/local.json
 RUN     sed -e 's/post_max_size = 8M/post_max_size = 32M/' \
           -e 's/upload_max_filesize = 2M/upload_max_filesize = 32M/' \
           -i /etc/php5/apache2/php.ini
-RUN     ln -s /usr/lib/git-core/git-http-backend /opt/phabricator/support/bin
+RUN     ln -s /usr/lib/git-core/git-http-backend /opt/phabricator/support/bin && \
+        ln -s /usr/lib/git-core/git-upload-pack /opt/phabricator/support/bin && \
+        ln -s /usr/lib/git-core/git-receive-pack /opt/phabricator/support/bin
 RUN     echo "www-data ALL=(ALL) SETENV: NOPASSWD: /opt/phabricator/support/bin/git-http-backend" >> /etc/sudoers
 
 # User
@@ -63,10 +66,10 @@ RUN     echo "www-data ALL=(ALL) SETENV: NOPASSWD: /opt/phabricator/support/bin/
 #
 #ENV     HOME=/opt
 #RUN     mkdir -p ${HOME} && \
-#          useradd -u 1001 -r -g 0 -d ${HOME} LOGIN && \
-#          chown -R 1001:0 ${HOME} && \
-#          chown -R 1001:0 /var/log/apache2/
+#        useradd -u 1001 -r -g 0 -d ${HOME} LOGIN && \
+#        chown -R 1001:0 ${HOME}
 #WORKDIR ${HOME}
+
 #USER    1001
 
 EXPOSE  8080

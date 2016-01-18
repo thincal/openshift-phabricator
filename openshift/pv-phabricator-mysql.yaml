@@ -1,0 +1,21 @@
+#sudo mkdir -p /home/data/phabricator-mysqlvol
+#sudo chown nfsnobody:nfsnobody /home/data/phabricator-mysqlvol
+#sudo chmod 700 /home/data/phabricator-mysqlvol
+
+#sudo vi /etc/exports
+#/home/data/phabricator-mysqlvol/ *(rw,sync,all_squash)
+
+#sudo exportfs -r
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: phabricator-mysql-volume
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 200Gi
+  nfs:
+    path: /home/data/phabricator-mysqlvol
+    server: master1.ceyes.os

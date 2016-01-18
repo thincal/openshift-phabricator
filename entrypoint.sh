@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ ! -f /opt/phabricator/conf/local/local.json ]; then
-  echo "local.json is not present, then create it!"
+  echo "local.json is not present, then create it..."
   cp /tmp/local.json /opt/phabricator/conf/local/local.json
 
   # Patching the settings file.
@@ -14,7 +14,7 @@ else
   echo "local.json is already present..."
 fi
 
-echo "local.json content:"
+echo "local.json's content:"
 cat /opt/phabricator/conf/local/local.json
 
 if [ "${1}" = "start-server" ]; then

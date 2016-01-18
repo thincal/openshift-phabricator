@@ -10,7 +10,7 @@ spec:
       name: phabricator
       env:
         - name: MYSQL_HOST
-          value: master1.ceyes.os
+          value: phabricator-mysql
         - name: MYSQL_PORT
           value: "3306"
         - name: MYSQL_USER
